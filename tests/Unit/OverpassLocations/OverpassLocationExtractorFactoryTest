@@ -1,0 +1,43 @@
+<?php
+
+namespace Tests\Unit;
+
+use App\Services\OverpassLocations\OverpassLocationExtractorFactory;
+use App\Services\OverpassLocations\OverpassNodeLocationExtractor;
+use App\Services\OverpassLocations\OverpassWayLocationExtractor;
+use App\Services\OverpassLocations\OverpassRelationLocationExtractor;
+use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\Test;
+use InvalidArgumentException;
+
+class OverpassLocationExtractorFactoryTest extends TestCase
+{
+    #[Test]
+    public function it_create_extractor_creates_node_extractor()
+    {
+        $extractor = OverpassLocationExtractorFactory::createExtractor('node');
+        $this->assertInstanceOf(OverpassNodeLocationExtractor::class, $extractor);
+    }
+
+    #[Test]
+    public function it_create_extractor_creates_way_extractor()
+    {
+        $extractor = OverpassLocationExtractorFactory::createExtractor('way');
+        $this->assertInstanceOf(OverpassWayLocationExtractor::class, $extractor);
+    }
+
+    #[Test]
+    public function it_create_extractor_creates_relation_extractor()
+    {
+        $extractor = OverpassLocationExtractorFactory::createExtractor('relation');
+        $this->assertInstanceOf(OverpassRelationLocationExtractor::class, $extractor);
+    }
+
+    #[Test]
+    public function it_create_extractor_throws_exception_for_unknown_type()
+    {
+        $this->expectException(InvalidArgumentException::class);       
+
+        OverpassLocationExtractorFactory::createExtractor('unknown');
+    }
+}
