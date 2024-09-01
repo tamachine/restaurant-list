@@ -10,12 +10,12 @@ use App\Interfaces\RestaurantDataSourceInterface;
  */
 class RestaurantService
 {
-    protected RestaurantRepositoryInterface $RestaurantRepository;
+    protected RestaurantRepositoryInterface $restaurantRepository;
     protected RestaurantDataSourceInterface $restaurantDataSource;
 
-    public function __construct(RestaurantRepositoryInterface $RestaurantRepository, RestaurantDataSourceInterface $restaurantDataSource)
+    public function __construct(RestaurantRepositoryInterface $restaurantRepository, RestaurantDataSourceInterface $restaurantDataSource)
     {
-        $this->RestaurantRepository = $RestaurantRepository;
+        $this->restaurantRepository = $restaurantRepository;
         $this->restaurantDataSource = $restaurantDataSource;
     }
 
@@ -29,7 +29,7 @@ class RestaurantService
         $restaurants = $this->restaurantDataSource->getRestaurants();
 
         foreach ($restaurants as $restaurant) {
-            $this->RestaurantRepository->updateOrCreate(
+            $this->restaurantRepository->updateOrCreate(
                 [
                     'source_id' => $restaurant->source_id
                 ],
