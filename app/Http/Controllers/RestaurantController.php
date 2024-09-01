@@ -14,18 +14,18 @@ use App\Services\RestaurantService;
 class RestaurantController extends Controller
 {
 
-    protected RestaurantRepositoryInterface $RestaurantRepository;    
+    protected RestaurantRepositoryInterface $restaurantRepository;    
     protected RestaurantService $restaurantService;
     
     /**
      * Create a new controller instance.
      *
-     * @param RestaurantRepositoryInterface $RestaurantRepository The repository for restaurant data.
+     * @param RestaurantRepositoryInterface $restaurantRepository The repository for restaurant data.
      * @param RestaurantService $restaurantService The service for restaurant operations.
      */
-    public function __construct(RestaurantRepositoryInterface $RestaurantRepository, RestaurantService $restaurantService)
+    public function __construct(RestaurantRepositoryInterface $restaurantRepository, RestaurantService $restaurantService)
     {
-        $this->RestaurantRepository = $RestaurantRepository;
+        $this->restaurantRepository = $restaurantRepository;
         $this->restaurantService    = $restaurantService;
     }
 
@@ -36,7 +36,7 @@ class RestaurantController extends Controller
      */
     public function index()
     {
-        $restaurants = $this->RestaurantRepository->getAll();
+        $restaurants = $this->restaurantRepository->getAll();
 
         return new RestaurantCollection($restaurants);
     }
@@ -62,7 +62,7 @@ class RestaurantController extends Controller
      */
     public function show($id)
     {
-        $restaurant = $this->RestaurantRepository->findById($id);
+        $restaurant = $this->restaurantRepository->findById($id);
 
         if(!$restaurant) return response()->json(['error' => 'Restaurant not found'], 404);
         
