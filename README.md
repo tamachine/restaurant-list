@@ -51,6 +51,14 @@ Returns a restaurant by its source_id
 }
 ```
 
+## Update restaurant list command
+
+This service provides an artisan command to dispatch the update restaurant list job
+
+```bash
+php artisan app:update-restaurant-list-job
+```
+
 ## Requirements
 
 This is a Laravel project that can be set up using Laravel Sail or directly on your local environment. Below are the instructions for both methods.
@@ -65,40 +73,41 @@ Before you begin, ensure you have the following installed:
 
 1. **Clone the repository:**
 
-   ```bash
-   git clone https://github.com/tamachine/founderz-restaurant-list
-   cd founderz-restaurant-list
-   ```
+```bash
+git clone https://github.com/tamachine/founderz-restaurant-list
+cd founderz-restaurant-list
+```
 
 2. **Copy env file:**
 
-    ```bash
-    cp .env.example .env
-    ```
+```bash
+cp .env.example .env
+```
 
 3. **Install composer dependencies:**
 
-    Refer to https://laravel.com/docs/11.x/sail#installing-composer-dependencies-for-existing-projects
+Refer to https://laravel.com/docs/11.x/sail#installing-composer-dependencies-for-existing-projects
 
-    ```bash
-    docker run --rm \
-        -u "$(id -u):$(id -g)" \
-        -v "$(pwd):/var/www/html" \
-        -w /var/www/html \
-        laravelsail/php83-composer:latest \
-        composer install --ignore-platform-reqs
-    ```
+```bash
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    laravelsail/php83-composer:latest \
+    composer install --ignore-platform-reqs
+```
+
 4. **Start sail:**
  
-    ```bash
-    ./vendor/bin/sail up
-    ```
+```bash
+./vendor/bin/sail up
+```
 
 5. **Create app key:**
 
-    ```bash
-    ./vendor/bin/sail artisan generate:key
-    ```
+```bash
+./vendor/bin/sail artisan generate:key
+```
 
 6. **Migrate database:**
 
@@ -106,42 +115,42 @@ Be sure your DB_HOST var in .env file is set to mysql
 
 BD_HOST=mysql
 
-    ```bash
-    ./vendor/bin/sail artisan migrate
-    ```
+```bash
+./vendor/bin/sail artisan migrate
+```
 
 7. **Start the queue worker:**
 
 This project uses a database queue connection to execute the job that updates the restaurants, so the worker must be started.
 
-    ```bash
-    ./vendor/bin/sail artisan queue:work
-    ```
+```bash
+./vendor/bin/sail artisan queue:work
+```
 
 8. **Start the scheduler:**
 
 This project schedules the previously mentioned job to be run every day so the worker must be started.
     
-    ```bash
-    ./vendor/bin/sail artisan schedule:work
-    ```
+```bash
+./vendor/bin/sail artisan schedule:work
+```
 
 9. **Run the update list job:**
 
 This project has a custom artisan command in order to dispatch the mentioned job and update the restaurant list by the command line:
 
-    ```bash
-    ./vendor/bin/sail artisan app:update-restaurant-list-job
-    ```
+```bash
+./vendor/bin/sail artisan app:update-restaurant-list-job
+```
 
 10. **Run tests (optional)**
 
 If you'd like to run the tests, run the migrations in the test environment and run the tests
 
-    ```bash
-    ./vendor/bin/sail artisan migrate --env=testing
-    ./vendor/bin/sail artisan test
-    ```
+```bash
+./vendor/bin/sail artisan migrate --env=testing
+./vendor/bin/sail artisan test
+```
 
 ### Without Laravel Sail
 
@@ -173,31 +182,31 @@ Create the main database to be used and the testing one
 
 2. **Clone the repository:**
 
-   ```bash
-   git clone https://github.com/tamachine/founderz-restaurant-list
-   cd founderz-restaurant-list
-   ```
+```bash
+git clone https://github.com/tamachine/founderz-restaurant-list
+cd founderz-restaurant-list
+```
 
 3. **Copy and set env files:**
 Copy the env file and set the vars to the database and users you have created in the step #1
 
-    ```bash
-    cp .env.example .env
-    ```
+```bash
+cp .env.example .env
+```
 
 Do the same with the env.testing file that is already created. Set the vars to the corresponding ones
 
 4. **Install composer dependencies:**
 
-    ```bash
-    composer install
-    ```
+```bash
+composer install
+```
 
 5. **Create app key:**
 
-    ```bash
-    php artisan generate:key
-    ```
+```bash
+php artisan generate:key
+```
 
 6. **Migrate database:**
 
@@ -205,48 +214,48 @@ Be sure your DB_HOST var in .env file is set to the corresponding host
 
 BD_HOST=localhost or your current mysql host.
 
-    ```bash
-    php artisan migrate
-    ```
+```bash
+php artisan migrate
+```
 
 7. **Start the queue worker:**
 
 This project uses a database queue connection to execute the job that updates the restaurants, so the worker must be started.
 
-    ```bash
-    php artisan queue:work
-    ```
+```bash
+php artisan queue:work
+```
 
 8. **Start the scheduler:**
 
 This project schedules the previously mentioned job to be run every day so the worker must be started.
     
-    ```bash
-    php artisan schedule:work
-    ```
+```bash
+php artisan schedule:work
+```
 
 9. **Run the update list job:**
 
 This project has a custom artisan command in order to dispatch the mentioned job and update the restaurant list by the command line:
 
-    ```bash
-    php artisan app:update-restaurant-list-job
-    ```
+```bash
+php artisan app:update-restaurant-list-job
+```
 
 10. **Start the server:**
 
-    ```bash
-    php artisan serve
-    ```
+```bash
+php artisan serve
+```
 
 11. **Run tests (optional)**
 
 If you'd like to run the tests, run the migrations in the test environment and run the tests
 
-    ```bash
-    php artisan migrate --env=testing
-    php artisan test
-    ```
+```bash
+php artisan migrate --env=testing
+php artisan test
+```
 
 
 
