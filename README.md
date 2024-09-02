@@ -2,6 +2,55 @@
 
 The application is designed to handle restaurant data, utilizing the Overpass API from OpenStreetMap to extract information about fast-food restaurants, specifically focusing on the McDonald's chain.
 
+## API endpoints
+
+This service provides a REST API with the next endpoints:
+
+### GET /
+
+Returns the restaurant list stored in the database
+
+* **200 OK**
+
+```json
+{
+    "data": [
+        {
+            "source_id": 123,
+            "latitude": 45.0,
+            "longitude": -93.0
+        },
+        {
+            "source_id": 456,
+            "latitude": 4465.0,
+            "longitude": -94.0
+        }
+    ]
+}
+```
+
+### POST /update-list
+
+Dispatches the job that updates the restaurant list 
+
+* **202 Accepted**
+
+### GET /get/{id}
+
+Returns a restaurant by its source_id
+
+* **200 OK**
+
+```json
+{
+    "data": {
+        "source_id": 123,
+        "latitude": 45.0,
+        "longitude": -93.0
+    }
+}
+```
+
 ## Requirements
 
 This is a Laravel project that can be set up using Laravel Sail or directly on your local environment. Below are the instructions for both methods.
@@ -184,7 +233,13 @@ This project has a custom artisan command in order to dispatch the mentioned job
     php artisan app:update-restaurant-list-job
     ```
 
-10. **Run tests (optional)**
+10. **Start the server:**
+
+    ```bash
+    php artisan serve
+    ```
+
+11. **Run tests (optional)**
 
 If you'd like to run the tests, run the migrations in the test environment and run the tests
 
@@ -192,4 +247,10 @@ If you'd like to run the tests, run the migrations in the test environment and r
     php artisan migrate --env=testing
     php artisan test
     ```
+
+
+
+
+
+
 
